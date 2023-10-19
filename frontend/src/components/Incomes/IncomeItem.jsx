@@ -152,7 +152,7 @@ const Incomeitem = ({
   return (
     <IncomeitemStyled $indicator={indicatorColor}>
       <div className="icon">
-        {type === "expense" ? expenseCatIcon() : categoryIcon()}
+        {type === "Expense" ? expenseCatIcon() : categoryIcon()}
       </div>
       <div className="content">
         <h5>{title}</h5>

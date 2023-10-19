@@ -45,7 +45,7 @@ const Chart = () => {
     labels: incomeList.map((inc) => {
       const { date } = inc;
       return dateFormat(date);
-    }),
+    }).reverse(),
     datasets: [
       {
         label: "Income",
@@ -53,10 +53,10 @@ const Chart = () => {
           ...incomeList.map((income) => {
             const { amount } = income;
             return amount;
-          }),
+          }).reverse(),
         ],
         backgroundColor: "green",
-        tension: 1,
+        tension: 0.3,
       },
       {
         label: "Expense",
@@ -67,7 +67,7 @@ const Chart = () => {
           }),
         ],
         backgroundColor: "red",
-        tension: 1,
+        tension: 0.3,
       },
     ],
   };

@@ -3,6 +3,7 @@ import styled from "styled-components";
 import { menuItems } from '../../utils/MenuItems.jsx';
 import avatar from '../../img/avatar.jpg';
 import icons from '../../utils/icons.jsx';
+import { useglobalcontext } from '../Context/globalcontext.jsx';
 
 
 const NavStyled = styled.nav`
@@ -82,13 +83,14 @@ const NavStyled = styled.nav`
 `;
 
 const Navigation = ({active, setactive}) => {
+    const {totalBalance} = useglobalcontext();
   return (
     <NavStyled>
         <div className='user-con'>
             <img src={avatar} alt='>>'/>
             <div className='text'>
                 <h2> Moiz </h2>
-                <p> Your Money </p>
+                <p> {icons.dollar} {totalBalance()} </p>
             </div>
         </div>
 
