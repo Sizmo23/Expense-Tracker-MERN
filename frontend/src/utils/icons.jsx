@@ -30,6 +30,10 @@ const icons = {
   medical: <i className="fa-solid fa-briefcase-medical"></i>,
   tv: <i className="fa-solid fa-tv"></i>,
   circle: <i className="fa-solid fa-circle-dot"></i>,
+  friends: <i className="fas fa-user-friends"></i>,
+  electricity: <i className="fa fa-bolt"></i>,
+  water: <i className="fas fa-faucet"></i>,
+  gas: <i className="fas fa-fire-flame-simple"></i>
 };
 
 export default icons;

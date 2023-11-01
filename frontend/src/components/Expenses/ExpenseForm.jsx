@@ -5,6 +5,7 @@ import "react-datepicker/dist/react-datepicker.css";
 import icons from "../../utils/icons";
 import { useglobalcontext } from "../Context/globalcontext";
 import Button from "../Button/Button";
+import { useSnackbar } from "notistack";
 
 const ExpenseFormstyled = styled.form`
   display: flex;
@@ -65,7 +66,8 @@ const ExpenseFormstyled = styled.form`
 `;
 
 const ExpenseForm = () => {
-  const { addExpenses, getExpenses } = useglobalcontext();
+  const { addExpenses, getExpenses, error } = useglobalcontext();
+  const {enqueueSnackbar} = useSnackbar();
   const [inputstate, setinputstate] = useState({
     title: "",
     amount: "",
@@ -84,7 +86,13 @@ const ExpenseForm = () => {
     e.preventDefault();
     const parsedAmount = parseFloat(amount);
 
+    if (!title || !date || !amount || !category || !description) {
+      enqueueSnackbar(`Error! All Fields are Required!`, {variant: "error"});
+      return;
+    }
+
     if (isNaN(parsedAmount)) {
+      enqueueSnackbar(`Error! Amount is not a valid number.`, {variant: "error"});
       console.error("Amount is not a valid number.");
       return;
     }
@@ -156,10 +164,12 @@ const ExpenseForm = () => {
           <option value="education">Education</option>
           <option value="groceries">Groceries</option>
           <option value="health">Health</option>
-          <option value="subscriptions">Subscriptions</option>
+          <option value="electricity">Electricity</option>
+          <option value="water">Water</option>
+          <option value="gas">Gas</option>
           <option value="takeaways">Takeaways</option>
           <option value="clothing">Clothing</option>
-          <option value="travelling">Friends</option>
+          <option value="friends">Friends</option>
           <option value="other">Other</option>
         </select>
       </div>

@@ -1,7 +1,7 @@
-import React, { useState } from 'react'
+import React from 'react'
 import styled from "styled-components";
 import { menuItems } from '../../utils/MenuItems.jsx';
-import avatar from '../../img/avatar.jpg';
+import avatar from '../../img/avatar.png';
 import icons from '../../utils/icons.jsx';
 import { useglobalcontext } from '../Context/globalcontext.jsx';
 

@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import styled from "styled-components";
 import { InnerLayout } from "../../styles/Layout";
-import Chart from "../Chart/chart.jsx";
+import Charta from "../Chart/Charta.jsx";
 import icons from "../../utils/icons";
 import { useglobalcontext } from "../Context/globalcontext";
 import History from "../history/History";
@@ -101,6 +101,14 @@ const DashboardStyled = styled.div`
   }
 `;
 
+const check = (some) =>{
+  if(some === Infinity || some === -Infinity)
+  {
+    return 0;
+  }
+  return some;
+}
+
 const Dashboard = () => {
   const {
     totalExpenses,
@@ -115,6 +123,14 @@ const Dashboard = () => {
     getIncome();
     getExpenses();
   }, []);
+
+  const min_expense = Math.min(...ExpenseList.map((item) => item.amount));
+  const max_expense = Math.max(...ExpenseList.map((item) => item.amount));
+
+  const min_income = Math.min(...incomeList.map((item) => item.amount));
+  const max_income = Math.max(...incomeList.map((item) => item.amount));
+
+
   return (
     <DashboardStyled>
       <InnerLayout>
@@ -125,7 +141,7 @@ const Dashboard = () => {
         </div>
         <div className="stats-con">
           <div className="chart-con">
-            <Chart />
+            <Charta />
             <div className="amount-con">
               <div className="income">
                 <h2>Total Income</h2>
@@ -153,15 +169,15 @@ const Dashboard = () => {
               Min <span>Salary</span>Max
             </h2>
             <div className="salary-item">
-              <p>${Math.min(...incomeList.map((item) => item.amount))}</p>
-              <p>${Math.max(...incomeList.map((item) => item.amount))}</p>
+              <p>${check(min_income)}</p>
+              <p>${check(max_income)}</p>
             </div>
             <h2 className="salary-title">
               Min <span>Expense</span>Max
             </h2>
             <div className="salary-item">
-              <p>${Math.min(...ExpenseList.map((item) => item.amount))}</p>
-              <p>${Math.max(...ExpenseList.map((item) => item.amount))}</p>
+              <p>${check(min_expense)}</p>
+              <p>${check(max_expense)}</p>
             </div>
           </div>
         </div>

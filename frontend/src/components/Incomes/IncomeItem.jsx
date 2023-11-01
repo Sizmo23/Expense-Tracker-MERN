@@ -91,63 +91,49 @@ const Incomeitem = ({
 }) => {
   const categoryIcon = () => {
     if (category === "salary") {
-      console.log("**3");
       return icons.money;
     } else if (category === "Tuition") {
-      console.log("**special");
       return icons.freelance;
     } else if (category === "Dosto") {
-      console.log("**3");
-      return icons.stocks;
+      return icons.friends;
     } else if (category === "Bank Payment") {
-      console.log("**3");
       return icons.users;
     } else if (category === "Ammi") {
-      console.log("**3");
       return icons.bitcoin;
     } else if (category === "Rishtedaar") {
-      console.log("**3");
       return icons.card;
     } else if (category === "other") {
       return icons.piggy;
     } else {
-      console.log("**3");
       return "";
     }
   };
 
   const expenseCatIcon = () => {
     if (category === "education") {
-      console.log("**eee");
       return icons.book;
     } else if (category === "groceries") {
       return icons.food;
     } else if (category === "health") {
       return icons.medical;
-    } else if (category === "subscriptions") {
-      return icons.tv;
+    } else if (category === "electricity") {
+      return icons.electricity;
+    } else if (category === "water") {
+      return icons.water;
+    } else if (category === "gas") {
+      return icons.gas;
     } else if (category === "takeaways") {
       return icons.takeaway;
     } else if (category === "clothing") {
       return icons.clothing;
-    } else if (category === "travelling") {
-      return icons.freelance;
+    } else if (category === "friends") {
+      return icons.friends;
     } else if (category === "other") {
       return icons.circle;
     } else {
-      console.log("**e;se");
       return "";
     }
   };
-
-  console.log( id,
-    title,
-    amount,
-    date,
-    category,
-    deleteItem,
-    indicatorColor,
-    type);
 
   return (
     <IncomeitemStyled $indicator={indicatorColor}>

@@ -5,6 +5,7 @@ import "react-datepicker/dist/react-datepicker.css";
 import icons from "../../utils/icons";
 import { useglobalcontext } from "../Context/globalcontext";
 import Button from "../Button/Button";
+import { useSnackbar } from "notistack";
 
 const Formstyled = styled.form`
   display: flex;
@@ -65,7 +66,8 @@ const Formstyled = styled.form`
 `;
 
 const Form = () => {
-  const { addIncome, getIncome } = useglobalcontext();
+  const { addIncome, getIncome, error } = useglobalcontext();
+  const {enqueueSnackbar} = useSnackbar();
   const [inputstate, setinputstate] = useState({
     title: "",
     amount: "",
@@ -82,11 +84,16 @@ const Form = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log('322');
     const parsedAmount = parseFloat(amount);
+
+    if (!title || !date || !amount || !category) {
+      enqueueSnackbar(`Error! All fields are required!`, {variant: "error"});
+      return;
+    }
 
     if (isNaN(parsedAmount)) {
       console.error("Amount is not a valid number.");
+      enqueueSnackbar(`Error! Amount is not a valid number.`, {variant: "error"});
       return;
     }
 
@@ -97,8 +104,6 @@ const Form = () => {
       category,
       description,
     };
-
-    console.log('new income');
 
     addIncome(newIncome);
     setinputstate({
@@ -113,6 +118,8 @@ const Form = () => {
 
   return (
     <Formstyled onSubmit={handleSubmit}>
+      
+      {error && <p className="error">{error}</p>}
       <div id="dd2" className="input-control">
         <input
           type="text"
