@@ -29,6 +29,34 @@ export async function addExpense(req, res) {
   }
 }
 
+export async function editExpense(req, res) {
+  const { title, amount, category, description, date } = req.body;
+  try {
+    if (!title || !amount || !category || !description || !date) {
+      return res.status(400).json({ message: "Error Bad. Input all stuffs" });
+    }
+    if (amount < 0 || typeof amount !== "number") {
+      return res
+        .status(400)
+        .json({ message: "Amount must be a number and more than 0" });
+    }
+    const { id } = req.params;
+    const check = await Expense.findByIdAndUpdate(id, req.body);
+    if(!check)
+    {
+      return res.status(404).json({message:`Error! Expense Not Found!`});
+    }
+    const new_Expense = await Expense.findById(id);
+    return res.status(200).json({
+      message:"Expense Successfully Updated!",
+      data: new_Expense
+    })
+  } catch (error) {
+    console.error(`Error! ${error}`);
+    return res.status(400).send({ message: error.message });
+  }
+}
+
 export async function getExpense(req, res) {
   try {
     const Expenses = await Expense.find().sort({ createdAt: -1 });

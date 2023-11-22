@@ -8,7 +8,7 @@ const Globalcontext = React.createContext();
 
 export const Provider = ({ children }) => {
   const [incomes, setincome] = useState([]);
-  const {enqueueSnackbar} = useSnackbar();
+  const { enqueueSnackbar } = useSnackbar();
   const [counter, setcounter] = useState(0);
   const [expenses, setexpenses] = useState([]);
   const [error, seterror] = useState(null);
@@ -20,10 +20,10 @@ export const Provider = ({ children }) => {
     try {
       await axios.post(`${BASE_URL}/addincome`, income);
       setcounter(counter + 1);
-      enqueueSnackbar("Income added successfully", {variant: "success"});
+      enqueueSnackbar("Income added successfully", { variant: "success" });
     } catch (err) {
       console.error(err);
-      enqueueSnackbar(`Error! ${err}`, {variant: "error"});
+      enqueueSnackbar(`Error! ${err}`, { variant: "error" });
       seterror(err);
     }
   };
@@ -34,7 +34,18 @@ export const Provider = ({ children }) => {
       setincome(response.data);
     } catch (err) {
       console.error(err);
-      enqueueSnackbar(`Error! ${err}`, {variant: "error"});
+      enqueueSnackbar(`Error! ${err}`, { variant: "error" });
+      seterror(err);
+    }
+  };
+
+  const editIncome = async (id) => {
+    try {
+      await axios.put(`${BASE_URL}/editincome/${id}`);
+      enqueueSnackbar("Income Updated successfully", { variant: "success" });
+    } catch (err) {
+      console.error(err);
+      enqueueSnackbar(`Error! ${err}`, { variant: "error" });
       seterror(err);
     }
   };
@@ -42,11 +53,11 @@ export const Provider = ({ children }) => {
   const deleteIncome = async (id) => {
     try {
       await axios.delete(`${BASE_URL}/deleteincome/${id}`);
-      enqueueSnackbar("Income deleted successfully", {variant: "success"});
+      enqueueSnackbar("Income deleted successfully", { variant: "success" });
       getIncome();
     } catch (err) {
       console.error(err);
-      enqueueSnackbar(`Error! ${err}`, {variant: "error"});
+      enqueueSnackbar(`Error! ${err}`, { variant: "error" });
       seterror(err);
     }
   };
@@ -63,11 +74,11 @@ export const Provider = ({ children }) => {
     try {
       await axios.post(`${BASE_URL}/addexpense`, Expense);
       setcounter(counter + 1);
-      enqueueSnackbar("Expense added successfully", {variant: "success"});
+      enqueueSnackbar("Expense added successfully", { variant: "success" });
       getExpenses(); // Refresh the expenses list after adding.
     } catch (err) {
       console.error(err);
-      enqueueSnackbar(`Error! ${err}`, {variant: "error"});
+      enqueueSnackbar(`Error! ${err}`, { variant: "error" });
       seterror(err);
     }
   };
@@ -78,19 +89,29 @@ export const Provider = ({ children }) => {
       setexpenses(response.data);
     } catch (err) {
       console.error(err);
-      enqueueSnackbar(`Error! ${err}`, {variant: "error"});
+      enqueueSnackbar(`Error! ${err}`, { variant: "error" });
       seterror(err);
     }
   };
 
-  const deleteExpenses = async (id) => {
+  const editExpense = async(id) =>{
     try {
-      await axios.delete(`${BASE_URL}/deleteExpense/${id}`);
-      enqueueSnackbar("Expense deleted successfully", {variant: "success"});
-      getExpenses(); 
+      const response = await axios.put(`${BASE_URL}/editExpense/${id}`)
+      enqueueSnackbar(`Expense Successfully Updated!`, {variant: "success"});
     } catch (err) {
       console.error(err);
       enqueueSnackbar(`Error! ${err}`, {variant: "error"});
+    }
+  }
+
+  const deleteExpenses = async (id) => {
+    try {
+      await axios.delete(`${BASE_URL}/deleteExpense/${id}`);
+      enqueueSnackbar("Expense deleted successfully", { variant: "success" });
+      getExpenses();
+    } catch (err) {
+      console.error(err);
+      enqueueSnackbar(`Error! ${err}`, { variant: "error" });
       seterror(err);
     }
   };
@@ -121,19 +142,21 @@ export const Provider = ({ children }) => {
         addIncome,
         getIncome,
         incomes,
+        editIncome,
         deleteIncome,
         totalIncome,
         addExpenses,
         getExpenses,
         expenses,
         deleteExpenses,
+        editExpense,
         totalExpenses,
         totalBalance,
         counter,
         transactionHistory,
         incomeList,
         ExpenseList,
-        error
+        error,
       }}
     >
       {children}
