@@ -50,12 +50,12 @@ const Transactions = () => {
         <div className="container">
           <div className="total-income">
             <center>
-              <h4>Add</h4>
+              <h4>Incomes</h4>
             </center>
           </div>
           <div className="total-income">
             <center>
-              <h4>Sub</h4>
+              <h4>Expenses</h4>
             </center>
           </div>
         </div>
