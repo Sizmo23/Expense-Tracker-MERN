@@ -16,7 +16,7 @@ const TransactionsStyled = styled.div`
   }
   .total-income {
     background: #fcf6f9;
-    height: 50vh;
+    height: 100vh;
     border: 2px solid #ffffff;
     box-shadow: 0px 1px 15px rgba(0, 0, 0, 0.06);
     border-radius: 20px;
@@ -26,7 +26,7 @@ const TransactionsStyled = styled.div`
     gap: 0.5rem;
     span {
       font-size: 2.5rem;
-      font-weight: 800;
+      font-weight: 1200;
       color: var(--color-green);
     }
   }
